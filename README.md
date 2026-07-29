@@ -8,7 +8,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 |---|---|
 | Nền tảng | [Machine Learning for Kids](https://machinelearningforkids.co.uk/scratch/) |
 | Số module ML | 3 (ML-M1.1, ML-M2.1, ML-M3.1) |
-| Số file .sb3 | 20 (ML-M1.1: 7, ML-M2.1: 6, ML-M3.1: 7) |
+| Số file .sb3 | 19 (ML-M1.1: 7, ML-M2.1: 6, ML-M3.1: 6) |
 | Cấp học | Tiểu học (G5), THCS (G9), THPT (G11) |
 | Học phần khác | ScrJr-M1.1 (Scratch Jr), AIArd-M2.1 (AI + Arduino) |
 
@@ -44,8 +44,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | 3 | Chatbot phân tích phản hồi khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 4 | Máy học âm thanh | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fflappy-mario.sb3) | ☁️ cloud |
 | 5 | Máy bắn muỗi thông minh | `may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-ban-muoi-thong-minh.sb3) | 💾 local |
-| 6 | AI dự đoán kết quả học tập | `ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
-| 7 | Camera AI giao thông | `camera-ai-3.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcamera-ai-3.sb3) | ☁️ cloud |
+| 6 | Camera AI giao thông | `camera-ai-3.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcamera-ai-3.sb3) | ☁️ cloud |
 
 ## Ý nghĩa cột Extension
 
@@ -68,7 +67,7 @@ làm tay: xem [GHI-CHU-extension-mlforkids.md](GHI-CHU-extension-mlforkids.md).
 | Dự án | Dữ liệu | Ghi chú |
 |---|---|---|
 | Chatbot khảo sát khách hàng | `*/chatbot-khao-sat-khach-hang/` (8 file .txt) | 8 nhãn × 62 dòng, đã nạp 496 dòng lên project cloud |
-| AI dự đoán kết quả học tập | `*/ai-du-doan-ket-qua-hoc-tap.csv` | 6 cột, dạng regression |
+| AI dự đoán kết quả học tập | `ML-M2.1/ai-du-doan-ket-qua-hoc-tap.csv` | 6 cột, dạng regression |
 | Máy bắn muỗi thông minh | `ML-M3.1/may-ban-muoi-thong-minh.csv` | 4 cột, dạng regression |
 
 ## Cách link 1-click hoạt động
@@ -115,9 +114,7 @@ Kho-game/
 │   ├── chatbot-khao-sat-khach-hang.sb3
 │   ├── flappy-mario.sb3
 │   ├── may-ban-muoi-thong-minh.sb3
-│   ├── ai-du-doan-ket-qua-hoc-tap.sb3
 │   ├── camera-ai-3.sb3
-│   ├── ai-du-doan-ket-qua-hoc-tap.csv
 │   ├── may-ban-muoi-thong-minh.csv
 │   └── chatbot-khao-sat-khach-hang/
 ├── ScrJr-M1.1/            # 9 file .sjr (Scratch Jr)
