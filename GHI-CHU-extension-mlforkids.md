@@ -39,17 +39,46 @@ phong_cach_hai_long         phong_cach_khong_hai_long
 Dữ liệu nguồn để ở `ML-M2.1/chatbot-khao-sat-khach-hang/` và
 `ML-M3.1/chatbot-khao-sat-khach-hang/` (mỗi nhãn 1 file .txt).
 
-Hai việc còn phải làm bằng tay:
+### Block AI đã gắn
+
+File `.sb3` trước đây có `extensions: []` và 0 block AI trên tổng 145 block.
+Nay đã gắn extension `mlforkidstext1f667e20…` và điền 2 chỗ tác giả để trống,
+đúng theo hướng dẫn chính tác giả ghi trong comment của file.
+
+Trong sprite **phân tích - progress**, block `set [Phân tích câu trả lời]`
+trước đây gán hằng số `0`, nay gán:
+
+```
+set [Phân tích câu trả lời] to (recognise text (item (Câu hỏi thứ) of [Câu trả lời]) (label))
+```
+
+Đặt ở đúng vị trí cũ nên không bị lệch nhịp: tại thời điểm đó `Câu hỏi thứ`
+đang bằng số thứ tự câu của vòng lặp hiện tại.
+
+Trong sprite **Phan tích Nút nhấn**, block `wait until` có ô điều kiện rỗng
+(`CONDITION: [1, null]`), nay điền:
+
+```
+wait until (Is the machine learning model [ready to use]?)
+```
+
+### Sửa thứ tự list `class name`
+
+`Sprite1` đổi costume bằng `item # of (nhãn) in [class name]`, nên thứ tự list
+phải trùng thứ tự costume. Hai phần tử đầu đang bị đảo: `class name` để
+`chat_lieu_khong_hai_long` trước `chat_lieu_hai_long`, còn costume thì
+*chất liệu* trước *chất liệu không*. Hệ quả là riêng nhóm chất liệu hiện ngược
+mặt cảm xúc. Đã đảo lại cho khớp; 6 phần tử còn lại vốn đã đúng.
+
+### Còn phải làm bằng tay
 
 Model **chưa được train**. API trả `status: 0 — No models trained yet, only
 random answers can be chosen`. Phải vào giao diện MLforKids bấm *Train new
-machine learning model*. Endpoint train không mở qua scratchkey nên không
-script được.
+machine learning model* một lần. Endpoint train không mở qua scratchkey nên
+không script được.
 
-File `chatbot-khao-sat-khach-hang.sb3` hiện có `extensions: []` và **0 block
-AI** trên tổng 145 block. Không retarget được vì chưa có block nào để đổi.
-Phải mở Scratch, thêm extension của project rồi kéo block nhận dạng vào luồng
-hội thoại.
+Trước khi train, block `wait until model ready` sẽ chờ mãi nên bấm nút phân
+tích không thấy gì xảy ra. Đó là hành vi đúng của block, không phải lỗi file.
 
 ### Giới hạn 500 item
 

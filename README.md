@@ -30,7 +30,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 |---|---|---|---|---|
 | 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud |
 | 2 | CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fcaptcha-done.sb3) | ☁️ cloud |
-| 3 | Chatbot đọc hiểu khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fchatbot-khao-sat-khach-hang.sb3) | ⚠️ chưa có block AI |
+| 3 | Chatbot đọc hiểu khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 4 | Trò chơi điều khiển bằng giọng nói | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fflappy-mario.sb3) | ☁️ cloud |
 | 5 | AI dự đoán kết quả học tập | `ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
 | 6 | Camera giám sát giao thông | `camera-ai-3.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fcamera-ai-3.sb3) | ☁️ cloud |
@@ -41,7 +41,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 |---|---|---|---|---|
 | 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud |
 | 2 | Mô hình AI kiểm thử CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcaptcha-done.sb3) | ☁️ cloud |
-| 3 | Chatbot phân tích phản hồi khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fchatbot-khao-sat-khach-hang.sb3) | ⚠️ chưa có block AI |
+| 3 | Chatbot phân tích phản hồi khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 4 | Máy học âm thanh | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fflappy-mario.sb3) | ☁️ cloud |
 | 5 | Máy bắn muỗi thông minh | `may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-ban-muoi-thong-minh.sb3) | 💾 local |
 | 6 | AI dự đoán kết quả học tập | `ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
@@ -56,8 +56,9 @@ là dùng được ngay.
 duyệt, không nằm trong file .sb3. Mở ở máy khác sẽ trắng dữ liệu, phải
 nạp lại từ file CSV kèm theo rồi train.
 
-**⚠️ chưa có block AI** — file chưa gắn extension, cần mở Scratch thêm
-extension và kéo block nhận dạng vào luồng chương trình.
+**☁️ cloud · cần train 1 lần** — block AI và dữ liệu đã sẵn, nhưng model
+chưa được train. Mở link, bấm *Train new machine learning model* một lần,
+từ đó về sau mở là chạy.
 
 Chi tiết từng project cloud, giới hạn của nền tảng và các việc còn phải
 làm tay: xem [GHI-CHU-extension-mlforkids.md](GHI-CHU-extension-mlforkids.md).
