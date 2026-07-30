@@ -24,6 +24,107 @@ vẫn nạp extension mới nhưng các block cũ mang id cũ sẽ không nhận
 hiện block lạ và luồng AI đứng im. Dùng `retarget_extension.py`, không dùng
 `swap_extension.py` cho việc này.
 
+## Máy học phân loại — đổi từ Car/Cup sang dog/cat (30/07/2026)
+
+Project cloud giữ nguyên `fe13fb00-8a38-11f1-…`, chủ dự án đã đổi nhãn trên
+MLforKids thành `dog` / `cat`. Extension id đọc từ `extension3.js` vẫn là
+`mlforkidsimages1dea29508a2e11f1b2aac329ebcca8d1`, **không đổi**, nên không
+phải retarget: `extensionURLs`, `extensions[]` và opcode đều giữ nguyên.
+
+Kiểm tra bằng:
+
+```
+python scripts/retarget_extension.py Kho-game/ML-M2.1/may-hoc-phan-loai.sb3 \
+    --new-key <KEY> --dry-run
+```
+
+Script in ra `labels project moi: ['dog', 'cat']` và báo id giống nhau.
+
+### Code không phải sửa
+
+Sprite `mystery` so sánh bằng **chỉ số nhãn**, không phải chuỗi cứng:
+
+```
+if (recognise image (get costume image) (label)) = (return_label_0)
+    -> glide sang trái    (nhãn 0 = dog)
+else
+    -> glide sang phải    (nhãn 1 = cat)
+```
+
+`return_label_0` tự lấy tên nhãn từ extension nên khi project đổi sang dog/cat
+thì logic bám theo, không cần chỉnh block nào. Đây là lý do nên dùng
+`return_label_N` thay vì gõ tên nhãn thành chuỗi.
+
+### Dữ liệu training
+
+Nguồn: [Openverse](https://api.openverse.org) lọc `license=cc0` +
+`category=photograph` + `source=stocksnap`. Chọn stocksnap vì tìm chung bị
+nhiễu nặng: query `cat` lẫn ảnh **CAT scan** (chụp PET-CT), tượng mèo, tranh cổ;
+query `dog` lẫn *sun dog* (quầng khí quyển) và xe *police dog unit*.
+
+Lọc thêm trong `scripts/fetch_dogcat_dataset.py`:
+
+- tag/tiêu đề phải có tên con vật đích và **không** có tên con vật kia — bỏ ảnh
+  `Dog Cat` chụp cả hai con
+- bỏ từ khoá tranh vẽ/vật thể: illustration, painting, sketch, etching, statue…
+- kích thước tối thiểu 500px, tỉ lệ khung 0.5–2.0
+- chống trùng theo id và theo hash nội dung ảnh
+
+Tải 60 ảnh/nhãn về `dogcat-data/<nhãn>/`, kèm `dogcat-data/nguon.csv` ghi xuất
+xứ từng ảnh (tác giả, license, link gốc). Dữ liệu để **ngoài repo**, giống
+`captcha-data/`.
+
+Chia tập: 49 ảnh/nhãn nạp lên cloud làm training, **11 ảnh/nhãn giữ lại** làm
+costume trong `.sb3` để tập test không trùng tập train.
+
+```
+python scripts/fetch_dogcat_dataset.py --per-label 60
+python scripts/upload_dogcat_training.py --reserve 11
+python scripts/swap_costumes_dogcat.py
+```
+
+Trạng thái: **98 item** trên cloud, cân bằng `dog` 49 / `cat` 49.
+
+Bẫy gặp phải: 1 ảnh bị `HTTP 413 Payload too large` (ảnh 98 KB, 600×900). Nén
+về 320px q60 (27 KB) thì nạp được. Nếu nạp hàng loạt mà lệch nhãn thì kiểm tra
+log tìm 413, đừng cho rằng đã đủ.
+
+Giới hạn Openverse khi không có API key: `page_size` tối đa **20**, tối đa
+**12 trang** (~240 kết quả/truy vấn). Xin `page_size` lớn hơn trả HTTP 401,
+không phải 400.
+
+### Costume trong .sb3
+
+Sprite `mystery` có 22 costume, đổi hết sang ảnh dog/cat **xen kẽ**
+(mystery01 = dog, mystery02 = cat, …). Đáp án lưu ở
+`dogcat-data/costume-mapping.csv`.
+
+Tên vẫn để `mystery01`..`mystery22` vì code đổi costume theo **số thứ tự** qua
+biến `item` (1..22), không theo tên — và tên trung tính thì không lộ đáp án cho
+học sinh.
+
+Kích thước hiển thị giữ y như cũ: ảnh cũ 960px rộng với `bitmapResolution` 2
+(hiển thị 480px); ảnh mới 480px với `bitmapResolution` 1 — cùng hiển thị 480px
+nhưng nhẹ hơn 4 lần. `rotationCenter` đặt lại đúng nửa kích thước pixel thật.
+Sprite `size` = 20% nên trên sân khấu vẫn ra ~96px như trước.
+
+Kết quả: file .sb3 từ **4.4 MB xuống 1.6 MB** (ảnh costume 3907 KB → 575 KB),
+đổi từ PNG sang JPEG q85.
+
+### Còn phải làm bằng tay
+
+Model **chưa được train**: API trả `status: 0 — No models trained yet, only
+random answers can be chosen`. Phải vào MLforKids bấm *Train new machine
+learning model* một lần. Endpoint train không mở qua scratchkey nên không
+script được. README đã đổi cột Extension của bài này sang
+*☁️ cloud · cần train 1 lần*.
+
+### Ảnh nền chưa kiểm được
+
+Backdrop của Stage vẫn là ảnh cũ `Screenshot 2026-04-06 122413` (960×636).
+Không kiểm tra được ảnh này có chữ *Car* / *Cup* hay không. Nếu có thì phải
+thay hoặc sửa cho khớp dog/cat — việc này cần mở file ra xem bằng mắt.
+
 ## CAPTCHA — sửa luồng nhận diện ảnh (30/07/2026)
 
 Bài này có **hai lỗi lồng nhau**, phải sửa cả hai mới chạy đúng.
