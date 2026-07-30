@@ -125,54 +125,76 @@ Backdrop của Stage vẫn là ảnh cũ `Screenshot 2026-04-06 122413` (960×63
 Không kiểm tra được ảnh này có chữ *Car* / *Cup* hay không. Nếu có thì phải
 thay hoặc sửa cho khớp dog/cat — việc này cần mở file ra xem bằng mắt.
 
-## CAPTCHA — sửa luồng nhận diện ảnh (30/07/2026)
+## Ba block lấy ảnh của extension `mlforkidsImageData`
 
-Bài này có **hai lỗi lồng nhau**, phải sửa cả hai mới chạy đúng.
+Đọc kỹ mục này trước khi kết luận một bài "lấy sai ảnh". Ba block tên gần giống
+nhau nhưng lấy ảnh khác nhau hẳn, và **tên block dễ gây hiểu sai**.
 
-**Lỗi 1 — thiếu block nhận diện.** Sprite1 (khung scanner) gán
-`set [reg label] to [0]` là hằng số, nên phép so sánh
-`reg label = captcha label` **luôn sai**, cả 9 ô đều hiện costume `regc wrong`.
+| Block hiện trên palette | opcode | Dùng ở | Lấy gì |
+|---|---|---|---|
+| `costume image` | `getCostumeImage` | sprite | Ảnh costume hiện tại của **chính sprite đó**, đọc từ asset |
+| `backdrop image` | `getBackdropCostumeImage` | sprite | **Vùng sân khấu mà sprite đó đang bao phủ**, cắt từ canvas |
+| `backdrop image` | `getBackdropImage` | Stage | Toàn bộ sân khấu |
 
-**Lỗi 2 — nhận diện sai nguồn ảnh.** Sprite1 lấy ảnh bằng
-`get backdrop image`, nhưng Stage chỉ có 2 backdrop `LOGIN SUCCESS` và
-`Stripes`, không chứa ảnh CAPTCHA nào. Ảnh thật nằm ở costume của 9 sprite ô
-`00`..`22` (mỗi sprite 62 costume: 20 Hydrant, 21 Cross, 21 Bicycle). Nếu chỉ
-vá lỗi 1 thì model nhận cùng một ảnh nền cho cả 9 ô → kết quả vô nghĩa.
+Hai block giữa và cuối **hiện cùng một chữ** `backdrop image`, chỉ khác chỗ đặt
+(sprite hay Stage). Đây là chỗ dễ nhầm nhất.
 
-Scratch không có block lấy costume của sprite khác, nên đã **chuyển việc nhận
-diện vào chính từng sprite ô** (giống pattern `mystery` trong
-`may-hoc-phan-loai`):
+Thân hàm trong `gui.js` của MLforKids:
 
-- Stage: thêm list `reg labels` 9 phần tử.
-- Mỗi ô `00`..`22`, ngay sau khối chọn costume và trước `wait until touching
-  color`:
+```js
+getBackdropCostumeImage(e,t){
+  var o=t.target, i=o.getCurrentCostume(), n=o.size/100,
+      a=i.size[0]/i.bitmapResolution*n,      // rong hien thi cua sprite
+      r=i.size[1]/i.bitmapResolution*n,      // cao hien thi
+      s=o.x-i.rotationCenterX/i.bitmapResolution,
+      A=o.y+i.rotationCenterY/i.bitmapResolution,
+      l=this._getStageCanvas(), u=l.width/480;
+  s=u*(s+240), A=-u*(A-180), a*=u, r*=u;
+  ...
+  g.drawImage(l, s, A, a, r, 0, 0, 224, 224);   // cat dung vung sprite bao phu
+}
+```
 
-  ```
-  replace item <n> of [reg labels] with (recognise image (get costume image) (label))
-  ```
+Tức nó lấy hình chữ nhật bao quanh sprite gọi block, cắt ra từ canvas sân khấu
+rồi co về 224×224. Không phải cả sân khấu.
 
-  Chỉ số `n` lấy từ điều kiện `list a contains <idx>` có sẵn trong từng ô
-  (idx 0-based) rồi `+1` cho khớp list 1-based của Scratch. Ánh xạ:
-  `00`→1, `01`→2, `02`→3, `10`→4, `11`→5, `12`→6, `20`→7, `21`→8, `22`→9 —
-  trùng thứ tự list `coord`.
+Hệ quả khi dùng:
 
-- Sprite1: bỏ `set [reg image]` và `get backdrop image`, đổi thành
+- Vùng cắt tính theo **costume và `size`% của sprite gọi block**, nên sprite đó
+  phải có kích thước trùng vùng ảnh cần nhận diện.
+- Nó chụp **những gì đang được vẽ** ở vùng đó, kể cả sprite khác nằm trên. Nếu
+  sprite gọi block là một khung viền thì nên để phần giữa trong suốt.
+- Đây là cách duy nhất để nhận diện ảnh **của sprite khác**, vì Scratch không có
+  block đọc costume của sprite khác.
 
-  ```
-  set [reg label] to (item (coord_i) of [reg labels])
-  ```
+## CAPTCHA — thiếu block nhận diện (30/07/2026)
 
-  `coord_i` chạy 1..9 nên khớp trực tiếp với ô đang quét (clone glide tới
-  sprite tên `item (coord_i) of [coord]`).
+Sprite1 (khung scanner) gán `set [reg label] to [0]` là hằng số, nên phép so
+sánh `reg label = captcha label` **luôn sai**, cả 9 ô đều hiện costume
+`regc wrong`. Đã sửa: gán bằng kết quả nhận diện.
 
-Biến `reg image` giờ không dùng nữa, để nguyên cho đỡ phá cấu trúc.
+Bản đang dùng là **bản GV sửa lại** (PR #5), gồm:
 
-Kết quả: 9 block `_label` + 9 block `getCostumeImage`, mỗi ô tự nhận diện ảnh
-của mình. Sửa cả ML-M2.1 và ML-M3.1.
+```
+set [reg label] to (recognise image (backdrop image) (label))
+```
 
-Lưu ý: nhận diện chạy lúc nhận broadcast `start captcha`, tức 9 lời gọi API
-gần như đồng thời. Không chèn `wait until model ready` (giống
-`may-hoc-phan-loai`); nếu model chưa train thì `_label` trả nhãn ngẫu nhiên.
+cộng thêm nút train model trong sprite `loading`: broadcast `train model` gọi
+`trainNewModel`, rồi `wait until (checkModelStatus)`.
+
+Cách này **đúng**: Sprite1 glide tới đúng ô rồi `backdrop image` cắt vùng ô đó
+ra — xem mục "Ba block lấy ảnh" ở trên.
+
+### Ghi chú sai đã rút lại
+
+PR #4 trước đó (đã bị PR #5 ghi đè) dựa trên hiểu sai rằng
+`getBackdropCostumeImage` lấy **cả sân khấu**, nên kết luận bài này "nhận diện
+sai nguồn ảnh" và chuyển việc nhận diện vào từng sprite ô `00`..`22` qua một
+list `reg labels`. Kết luận đó **sai**, thay đổi đó **không cần thiết**. Thiết
+kế gốc dùng Sprite1 làm khung quét là đúng và gọn hơn.
+
+Giữ lại đây để lần sau không lặp lại: muốn biết một block lấy ảnh gì thì đọc
+thân hàm trong `gui.js`, đừng suy từ tên block.
 
 ## CAPTCHA — dữ liệu training ảnh
 
