@@ -1,6 +1,6 @@
 # Ghi chú: extension MLforKids trong các file .sb3
 
-Cập nhật: 29/07/2026
+Cập nhật: 30/07/2026
 
 Các dự án dùng extension MLforKids cần trỏ tới project trên cloud để học sinh
 mở là chạy được, không phải tự train lại. File này ghi trạng thái từng dự án và
@@ -11,7 +11,7 @@ những chỗ đang vướng.
 | Dự án | Project cloud | Nhãn |
 |---|---|---|
 | camera-ai-3 | `4acf8900-8a39-11f1-…` | Co_doi_mu_bao_hiem, Khong_doi_mu_bao_hiem |
-| captcha-done | `13d7b2d0-8a3c-11f1-…` | tru_cuu_hoa, vach_qua_duong, xe_dap |
+| captcha-done | `13d7b2d0-8a3c-11f1-…` | tru_cuu_hoa, vach_qua_duong, xe_dap — đã nạp 250 ảnh, xem mục CAPTCHA |
 | flappy-mario | `24cd9640-8a3c-11f1-…` | _background_noise_, Left, Right, Up, Down, No_talk |
 | may-hoc-phan-loai | `fe13fb00-8a38-11f1-…` | Car, Cup |
 
@@ -23,6 +23,134 @@ Lưu ý khi thay extension: phải đổi **đồng thời** `extensionURLs`,
 vẫn nạp extension mới nhưng các block cũ mang id cũ sẽ không nhận ra, palette
 hiện block lạ và luồng AI đứng im. Dùng `retarget_extension.py`, không dùng
 `swap_extension.py` cho việc này.
+
+## CAPTCHA — sửa luồng nhận diện ảnh (30/07/2026)
+
+Bài này có **hai lỗi lồng nhau**, phải sửa cả hai mới chạy đúng.
+
+**Lỗi 1 — thiếu block nhận diện.** Sprite1 (khung scanner) gán
+`set [reg label] to [0]` là hằng số, nên phép so sánh
+`reg label = captcha label` **luôn sai**, cả 9 ô đều hiện costume `regc wrong`.
+
+**Lỗi 2 — nhận diện sai nguồn ảnh.** Sprite1 lấy ảnh bằng
+`get backdrop image`, nhưng Stage chỉ có 2 backdrop `LOGIN SUCCESS` và
+`Stripes`, không chứa ảnh CAPTCHA nào. Ảnh thật nằm ở costume của 9 sprite ô
+`00`..`22` (mỗi sprite 62 costume: 20 Hydrant, 21 Cross, 21 Bicycle). Nếu chỉ
+vá lỗi 1 thì model nhận cùng một ảnh nền cho cả 9 ô → kết quả vô nghĩa.
+
+Scratch không có block lấy costume của sprite khác, nên đã **chuyển việc nhận
+diện vào chính từng sprite ô** (giống pattern `mystery` trong
+`may-hoc-phan-loai`):
+
+- Stage: thêm list `reg labels` 9 phần tử.
+- Mỗi ô `00`..`22`, ngay sau khối chọn costume và trước `wait until touching
+  color`:
+
+  ```
+  replace item <n> of [reg labels] with (recognise image (get costume image) (label))
+  ```
+
+  Chỉ số `n` lấy từ điều kiện `list a contains <idx>` có sẵn trong từng ô
+  (idx 0-based) rồi `+1` cho khớp list 1-based của Scratch. Ánh xạ:
+  `00`→1, `01`→2, `02`→3, `10`→4, `11`→5, `12`→6, `20`→7, `21`→8, `22`→9 —
+  trùng thứ tự list `coord`.
+
+- Sprite1: bỏ `set [reg image]` và `get backdrop image`, đổi thành
+
+  ```
+  set [reg label] to (item (coord_i) of [reg labels])
+  ```
+
+  `coord_i` chạy 1..9 nên khớp trực tiếp với ô đang quét (clone glide tới
+  sprite tên `item (coord_i) of [coord]`).
+
+Biến `reg image` giờ không dùng nữa, để nguyên cho đỡ phá cấu trúc.
+
+Kết quả: 9 block `_label` + 9 block `getCostumeImage`, mỗi ô tự nhận diện ảnh
+của mình. Sửa cả ML-M2.1 và ML-M3.1.
+
+Lưu ý: nhận diện chạy lúc nhận broadcast `start captcha`, tức 9 lời gọi API
+gần như đồng thời. Không chèn `wait until model ready` (giống
+`may-hoc-phan-loai`); nếu model chưa train thì `_label` trả nhãn ngẫu nhiên.
+
+## CAPTCHA — dữ liệu training ảnh
+
+Project cloud `13d7b2d0-8a3c-11f1-…` trước đây **trống 0 ảnh**, nên trang train
+không có gì để học sinh xem. Nay đã nạp ảnh thật.
+
+Nguồn: Kaggle [`mikhailma/test-dataset`](https://www.kaggle.com/datasets/mikhailma/test-dataset)
+— *Google Recaptcha Image Dataset*, ~11.700 ảnh chia 12 lớp, giấy phép
+**CC0 Public Domain** (dùng cho giáo dục và thương mại đều được).
+
+Ánh xạ lớp trong dataset sang nhãn của project:
+
+| Lớp dataset | Có sẵn | Nhãn project |
+|---|---|---|
+| Hydrant | 952 | `tru_cuu_hoa` |
+| Crosswalk | 1240 | `vach_qua_duong` |
+| Bicycle | 780 | `xe_dap` |
+
+Tải bằng `scripts/fetch_captcha_dataset.py`. File zip 409 MB nhưng script đọc
+qua **HTTP Range** (`scripts/httpzip.py`) nên chỉ tải vài MB cho số ảnh cần.
+Endpoint download của Kaggle mở công khai, **không cần `kaggle.json`**.
+
+Ảnh chọn trải đều toàn lớp (even stride) chứ không lấy 100 ảnh đầu, vì tên file
+xếp theo thứ tự thu thập nên cắt đầu sẽ lệch nội dung. Ảnh lưu ở
+`captcha-data/<nhãn>/`, mỗi ảnh ~30 KB.
+
+Nạp lên bằng `scripts/upload_captcha_images.py`. Bẫy base64 giống
+`upload_local_training.py`: phải gửi base64 **thuần**, bỏ tiền tố
+`data:image/png;base64,`, nếu không sẽ chèn 15 byte rác trước ảnh.
+
+### Giới hạn 250 ảnh, không phải 500
+
+Project **ảnh** chỉ chứa tối đa **250 mẫu**. Con số 500 là của project **text**.
+POST mẫu thứ 251 trả HTTP 409
+`Project already has maximum allowed amount of training data`.
+
+Giới hạn ghi trong mã nguồn MLforKids,
+[`mlforkids-api/src/lib/db/limits.ts`](https://github.com/IBM/taxinomitis/blob/master/mlforkids-api/src/lib/db/limits.ts):
+
+```
+textTrainingItemsPerProject        : 500
+numberTrainingItemsPerProject      : 1000
+numberTrainingItemsPerClassProject : 3000
+imageTrainingItemsPerProject       : 250
+soundTrainingItemsPerProject       : 100
+```
+
+Đáng chú ý cho hai dự án regression còn treo: project number cho phép tới 1000
+(3000 nếu là project trong lớp), thoải mái hơn nhiều so với ảnh.
+
+Vì vậy 100 ảnh × 3 nhãn = 300 **không nạp hết được**. Lần chạy đầu dừng ở 250
+ảnh, phân bố lệch 100/100/50 nên đã xoá sạch trên web rồi nạp lại cân bằng
+**83 ảnh/nhãn** (83 × 3 = 249, gần hết quota):
+
+```
+python scripts/upload_captcha_images.py --per-label 83
+```
+
+Trạng thái hiện tại: `tru_cuu_hoa` 83, `vach_qua_duong` 83, `xe_dap` 83. Đã
+kiểm tra ảnh tải về từ server là PNG hợp lệ, không lệch byte đầu.
+
+Giống project text, scratchkey **chỉ thêm được, không xoá được**: cả
+`DELETE /train/{id}`, `DELETE /train?id=`, `DELETE /train`, `DELETE /images/{id}`
+đều trả 302 về `/#!/404`, còn `POST /train/{id}/delete` trả HTML trang chủ —
+route không tồn tại. Muốn sửa phân bố phải xoá trong giao diện web MLforKids,
+hoặc xoá hẳn project rồi tạo lại (key mới thì phải retarget lại 2 file `.sb3`).
+
+### Bù thêm cho một nhãn lẻ
+
+Nếu sau này chỉ cần bù cho một nhãn thiếu mà không nạp trùng nhãn đã đủ:
+
+```
+python scripts/upload_captcha_images.py --label xe_dap --skip 50 --limit 33
+```
+
+`--skip` bỏ qua số ảnh đã nạp của nhãn đó, `--limit` chặn số ảnh gửi thêm.
+
+Sau khi nạp xong vẫn phải vào MLforKids bấm **Train new machine learning model**
+một lần — endpoint train không mở qua scratchkey.
 
 ## Chatbot khảo sát khách hàng
 
