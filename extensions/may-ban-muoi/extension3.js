@@ -373,19 +373,14 @@ class MachineLearningRegression {
     }
 
     trainNewModel() {
-        // With pre-embedded data, training is instant
-        // But we still support the workflow for additional data
-        this.training = true;
-        this.modelReady = false;
-
-        // Simulate brief training delay for UX consistency
-        var that = this;
-        setTimeout(function() {
-            that.modelReady = true;
-            that.training = false;
-            console.log('[ML4K-pretrained] Model trained with ' + 
-                (that.trainingData.length + that.additionalData.length) + ' samples.');
-        }, 500);
+        // No-op: KNN is a lazy learner and the training data is already
+        // embedded in this file, so the model is always ready.
+        // Kept as a no-op (rather than a simulated delay) because the
+        // project calls this block inside a `forever` loop - flipping
+        // modelReady off would make `predict` return nothing.
+        this.training = false;
+        this.modelReady = true;
+        this.modelError = false;
     }
 
 
