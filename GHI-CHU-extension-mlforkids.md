@@ -13,7 +13,7 @@ những chỗ đang vướng.
 | camera-ai-3 | `4acf8900-8a39-11f1-…` | Co_doi_mu_bao_hiem, Khong_doi_mu_bao_hiem |
 | captcha-done | `13d7b2d0-8a3c-11f1-…` | tru_cuu_hoa, vach_qua_duong, xe_dap — đã nạp 250 ảnh, xem mục CAPTCHA |
 | flappy-mario | `24cd9640-8a3c-11f1-…` | _background_noise_, Left, Right, Up, Down, No_talk |
-| may-hoc-phan-loai | `fe13fb00-8a38-11f1-…` | Car, Cup |
+| may-hoc-phan-loai | `fe13fb00-8a38-11f1-…` | dog, cat — đã nạp 240 ảnh Kaggle |
 
 Cả 4 file đã khớp `extension id` giữa `project.json` và `extension3.js` của
 project mới, gồm cả opcode của từng block.
@@ -55,75 +55,103 @@ else
 thì logic bám theo, không cần chỉnh block nào. Đây là lý do nên dùng
 `return_label_N` thay vì gõ tên nhãn thành chuỗi.
 
-### Dữ liệu training
+### Dữ liệu training — đổi từ Openverse sang Kaggle (30/07/2026)
 
-Nguồn: [Openverse](https://api.openverse.org) lọc `license=cc0` +
-`category=photograph` + `source=stocksnap`. Chọn stocksnap vì tìm chung bị
-nhiễu nặng: query `cat` lẫn ảnh **CAT scan** (chụp PET-CT), tượng mèo, tranh cổ;
-query `dog` lẫn *sun dog* (quầng khí quyển) và xe *police dog unit*.
+Bản Openverse đầu tiên chỉ vét được **49 ảnh/nhãn** nên model đoán yếu. Đã
+thay hẳn bằng Kaggle
+[`tongpython/cat-and-dog`](https://www.kaggle.com/datasets/tongpython/cat-and-dog)
+— giấy phép **CC0 Public Domain**, 10.032 ảnh, **tách sẵn** `training_set`
+(4000/lớp) và `test_set` (1000/lớp).
 
-Lọc thêm trong `scripts/fetch_dogcat_dataset.py`:
+Chọn dataset này vì hai lý do:
 
-- tag/tiêu đề phải có tên con vật đích và **không** có tên con vật kia — bỏ ảnh
-  `Dog Cat` chụp cả hai con
-- bỏ từ khoá tranh vẽ/vật thể: illustration, painting, sketch, etching, statue…
-- kích thước tối thiểu 500px, tỉ lệ khung 0.5–2.0
-- chống trùng theo id và theo hash nội dung ảnh
+- Đủ ảnh để nạp kín quota, không phải lọc nhiễu như Openverse (query `cat` lẫn
+  ảnh **CAT scan**, `dog` lẫn *sun dog*, tượng mèo, tranh vẽ…).
+- Có sẵn hai thư mục train/test nên **tập costume trong `.sb3` chắc chắn không
+  trùng tập train trên cloud** — điều kiện để bài học đo đúng độ chính xác.
+  Đã kiểm chứng bằng dHash: khoảng cách nhỏ nhất giữa 22 ảnh costume và 240 ảnh
+  train là **13 bit** (≤ 6 mới coi là trùng).
 
-Tải 60 ảnh/nhãn về `dogcat-data/<nhãn>/`, kèm `dogcat-data/nguon.csv` ghi xuất
-xứ từng ảnh (tác giả, license, link gốc). Dữ liệu để **ngoài repo**, giống
-`captcha-data/`.
+`scripts/fetch_dogcat_kaggle.py` đọc zip 228 MB qua **HTTP Range**
+(`scripts/httpzip.py`) nên chỉ tải vài MB, **không cần `kaggle.json`**. Ảnh
+chọn trải đều toàn lớp (even stride), chuẩn hoá **cắt giữa về 224×224 JPEG q85**
+(~12 KB/ảnh) rồi lưu ở `dogcat-kaggle/train|test/<nhãn>/`, kèm
+`dogcat-kaggle/nguon.csv` ghi đường dẫn gốc trong dataset. Dữ liệu để **ngoài
+repo**, giống `captcha-data/`.
 
-Chia tập: 49 ảnh/nhãn nạp lên cloud làm training, **11 ảnh/nhãn giữ lại** làm
-costume trong `.sb3` để tập test không trùng tập train.
+Chọn 224×224 vì đó đúng là kích thước đầu vào MobileNet mà MLforKids dùng: ảnh
+học và ảnh kiểm tra đi qua cùng một đường xử lý, không co giãn thêm. Nhỏ hơn
+ảnh captcha về dung lượng (~12 KB so với ~33 KB) nên bước tải dữ liệu về trình
+duyệt để train cũng nhanh.
 
 ```
-python scripts/fetch_dogcat_dataset.py --per-label 60
-python scripts/upload_dogcat_training.py --reserve 11
+python scripts/fetch_dogcat_kaggle.py --train 120 --test 11
+python scripts/upload_dogcat_training.py --data dogcat-kaggle/train --reserve 0
 python scripts/swap_costumes_dogcat.py
 ```
 
-Trạng thái: **98 item** trên cloud, cân bằng `dog` 49 / `cat` 49.
+Trạng thái: **240 item** trên cloud, cân bằng `dog` 120 / `cat` 120. Đã tải
+ngược vài ảnh từ server về kiểm: JPEG hợp lệ, magic byte `ffd8ffe0`, 224×224,
+không bị lệch byte đầu.
 
-Bẫy gặp phải: 1 ảnh bị `HTTP 413 Payload too large` (ảnh 98 KB, 600×900). Nén
-về 320px q60 (27 KB) thì nạp được. Nếu nạp hàng loạt mà lệch nhãn thì kiểm tra
-log tìm 413, đừng cho rằng đã đủ.
+Không dùng hết 250 mà chỉ 240 để còn 10 chỗ trống nếu GV muốn thêm ảnh minh
+hoạ trong giờ dạy. Ảnh nhỏ nên lần này **không gặp `HTTP 413`** như bản
+Openverse (ảnh 98 KB từng bị chặn).
 
-Giới hạn Openverse khi không có API key: `page_size` tối đa **20**, tối đa
-**12 trang** (~240 kết quả/truy vấn). Xin `page_size` lớn hơn trả HTTP 401,
-không phải 400.
+Thư mục `dogcat-data/` (Openverse) giữ lại làm tư liệu, không còn dùng nữa;
+`scripts/fetch_dogcat_dataset.py` cũng vậy.
 
 ### Costume trong .sb3
 
-Sprite `mystery` có 22 costume, đổi hết sang ảnh dog/cat **xen kẽ**
+Sprite `mystery` có 22 costume, lấy **tập test** của Kaggle, xen kẽ
 (mystery01 = dog, mystery02 = cat, …). Đáp án lưu ở
-`dogcat-data/costume-mapping.csv`.
+`dogcat-kaggle/costume-mapping.csv`.
 
 Tên vẫn để `mystery01`..`mystery22` vì code đổi costume theo **số thứ tự** qua
 biến `item` (1..22), không theo tên — và tên trung tính thì không lộ đáp án cho
 học sinh.
 
-Kích thước hiển thị giữ y như cũ: ảnh cũ 960px rộng với `bitmapResolution` 2
-(hiển thị 480px); ảnh mới 480px với `bitmapResolution` 1 — cùng hiển thị 480px
-nhưng nhẹ hơn 4 lần. `rotationCenter` đặt lại đúng nửa kích thước pixel thật.
-Sprite `size` = 20% nên trên sân khấu vẫn ra ~96px như trước.
+Ảnh dùng nguyên 224×224 `bitmapResolution` 1 như lúc fetch, không nén lại lần
+nữa. Ảnh cũ 3:2 nằm ngang (hiển thị 480×318 ở `size` 20% → 96×63,6 px trên sân
+khấu); ảnh mới vuông nên đặt `size` = **28,5714%** → hiển thị **64×64 px**, giữ
+đúng chiều cao cũ để nhịp xếp tầng 14 px của đoạn clone không đổi. Muốn ảnh to
+hơn thì `python scripts/swap_costumes_dogcat.py --display 96`, chỉ đổi `size`
+chứ không đổi block nào.
 
-Kết quả: file .sb3 từ **4.4 MB xuống 1.6 MB** (ảnh costume 3907 KB → 575 KB),
-đổi từ PNG sang JPEG q85.
+Kết quả: file .sb3 từ **9,1 MB xuống 2,2 MB** (ảnh costume 7190 KB → 257 KB).
+Bản GV sửa code nặng 9,1 MB vì Scratch lưu lại costume thành PNG 960×636
+`bitmapResolution` 2 khi mở file ra chỉnh.
 
-### Còn phải làm bằng tay
+Script cũng tự copy file master ở gốc task sang `Kho-game/ML-M2.1/` và
+`ML-M3.1/`; bản GV gửi lưu ở `00-goc/may-hoc-phan-loai-gv-sua-code.sb3`.
 
-Model **chưa được train**: API trả `status: 0 — No models trained yet, only
-random answers can be chosen`. Phải vào MLforKids bấm *Train new machine
-learning model* một lần. Endpoint train không mở qua scratchkey nên không
-script được. README đã đổi cột Extension của bài này sang
-*☁️ cloud · cần train 1 lần*.
+### Không phải train tay nữa
 
-### Ảnh nền chưa kiểm được
+Bản GV sửa (bản đang dùng) đã thêm ngay sau lá cờ xanh:
 
-Backdrop của Stage vẫn là ảnh cũ `Screenshot 2026-04-06 122413` (960×636).
-Không kiểm tra được ảnh này có chữ *Car* / *Cup* hay không. Nếu có thì phải
-thay hoặc sửa cho khớp dog/cat — việc này cần mở file ra xem bằng mắt.
+```
+train new machine learning model
+wait until (Is the machine learning model [Ready] ?)
+```
+
+Đọc `extension3.js` thì `trainNewModel` **train ngay trong trình duyệt**: nó
+gọi `GET /train?proxy=true` để tải toàn bộ ảnh training rồi `postMessage` lệnh
+`train` cho MLforKids chạy TensorFlow.js phía client. Không có endpoint train
+trên server, nên không có gì để script — và cũng không cần bấm gì trên
+MLforKids nữa. README đã đổi cột Extension của bài này sang
+*☁️ cloud · tự train khi bấm cờ*.
+
+Hệ quả cần biết khi dạy: mỗi lần bấm cờ xanh máy tải lại 240 ảnh (~3 MB) rồi
+train, lần đầu chờ vài chục giây. Đó là lý do nên giữ ảnh nhỏ.
+
+### Ảnh nền — GV đã sửa, chưa xem được bằng mắt
+
+Backdrop vẫn tên `Screenshot 2026-04-06 122413` (960×636, `bitmapResolution` 2)
+nhưng **byte đã khác** bản gốc (1084 KB → 975 KB), tức GV đã chỉnh lại. Bản GV
+cũng thêm hai sprite thư viện `Dog3` và `Cat` làm mốc hai bên sân khấu.
+
+Vẫn chưa khẳng định được ảnh nền còn chữ *Car* / *Cup* hay không — muốn biết
+phải mở file ra xem bằng mắt. Không đổi gì ở backdrop và hai sprite này.
 
 ## Ba block lấy ảnh của extension `mlforkidsImageData`
 

@@ -28,7 +28,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 
 | # | Bài học | File | Bật demo | Extension |
 |---|---|---|---|---|
-| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · cần train 1 lần |
+| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · tự train khi bấm cờ |
 | 2 | CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fcaptcha-done.sb3) | ☁️ cloud |
 | 3 | Chatbot đọc hiểu khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 4 | Trò chơi điều khiển bằng giọng nói | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fflappy-mario.sb3) | ☁️ cloud |
@@ -39,7 +39,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 
 | # | Bài học | File | Bật demo | Extension |
 |---|---|---|---|---|
-| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · cần train 1 lần |
+| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · tự train khi bấm cờ |
 | 2 | Mô hình AI kiểm thử CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcaptcha-done.sb3) | ☁️ cloud |
 | 3 | Chatbot phân tích phản hồi khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 4 | Máy học âm thanh | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fflappy-mario.sb3) | ☁️ cloud |
@@ -59,6 +59,11 @@ nạp lại từ file CSV kèm theo rồi train.
 chưa được train. Mở link, bấm *Train new machine learning model* một lần,
 từ đó về sau mở là chạy.
 
+**☁️ cloud · tự train khi bấm cờ** — trong dự án có block *train new
+machine learning model*, nên bấm cờ xanh là máy tự tải dữ liệu và train
+ngay trong trình duyệt. Không phải bấm gì trên Machine Learning for Kids,
+chỉ cần chờ vài chục giây lần đầu.
+
 Chi tiết từng project cloud, giới hạn của nền tảng và các việc còn phải
 làm tay: xem [GHI-CHU-extension-mlforkids.md](GHI-CHU-extension-mlforkids.md).
 
@@ -69,7 +74,7 @@ làm tay: xem [GHI-CHU-extension-mlforkids.md](GHI-CHU-extension-mlforkids.md).
 | Chatbot khảo sát khách hàng | `*/chatbot-khao-sat-khach-hang/` (8 file .txt) | 8 nhãn × 62 dòng, đã nạp 496 dòng lên project cloud |
 | AI dự đoán kết quả học tập | `ML-M2.1/ai-du-doan-ket-qua-hoc-tap.csv` | 6 cột, dạng regression |
 | Máy bắn muỗi thông minh | `ML-M3.1/may-ban-muoi-thong-minh.csv` | 4 cột, dạng regression |
-| Máy học phân loại | `dogcat-data/` (ngoài repo) | 2 nhãn dog/cat, ảnh CC0, đã nạp 98 ảnh lên project cloud |
+| Máy học phân loại | `dogcat-kaggle/` (ngoài repo) | 2 nhãn dog/cat, ảnh Kaggle CC0, đã nạp 240 ảnh lên project cloud |
 
 ## Cách link 1-click hoạt động
 
