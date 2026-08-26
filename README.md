@@ -8,7 +8,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 |---|---|
 | Nền tảng | [Machine Learning for Kids](https://machinelearningforkids.co.uk/scratch/) |
 | Số module ML | 3 (ML-M1.1, ML-M2.1, ML-M3.1) |
-| Số file .sb3 | 19 (ML-M1.1: 7, ML-M2.1: 6, ML-M3.1: 6) |
+| Số file .sb3 | 20 (ML-M1.1: 7, ML-M2.1: 6, ML-M3.1: 7) |
 | Cấp học | Tiểu học (G5), THCS (G9), THPT (G11) |
 | Học phần khác | ScrJr-M1.1 (Scratch Jr), AIArd-M2.1 (AI + Arduino) |
 
@@ -28,23 +28,23 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 
 | # | Bài học | File | Bật demo | Extension |
 |---|---|---|---|---|
-| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · tự train khi bấm cờ |
-| 2 | CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fcaptcha-done.sb3) | ☁️ cloud |
-| 3 | Chatbot đọc hiểu khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
-| 4 | Trò chơi điều khiển bằng giọng nói | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fflappy-mario.sb3) | ☁️ cloud |
-| 5 | AI dự đoán kết quả học tập | `ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
-| 6 | Camera giám sát giao thông | `camera-ai-3.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2Fcamera-ai-3.sb3) | ☁️ cloud |
+| 1 | Tổng quan về học máy | `ML-M2.1-SPM-tong-quan-ve-hoc-may.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-tong-quan-ve-hoc-may.sb3) | ☁️ cloud · tự train khi bấm cờ |
+| 2 | Mô hình kiểm thử CAPTCHA | `ML-M2.1-SPM-mo-hinh-kiem-thu-captcha.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-mo-hinh-kiem-thu-captcha.sb3) | ☁️ cloud |
+| 3 | Camera giám sát giao thông | `ML-M2.1-SPM-camera-giam-sat-giao-thong.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-camera-giam-sat-giao-thong.sb3) | ☁️ cloud |
+| 4 | Chatbot đọc hiểu khách hàng | `ML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
+| 5 | Trò chơi điều khiển bằng giọng nói | `ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3) | ☁️ cloud |
+| 6 | AI dự đoán kết quả học tập | `ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
 
 ## ML-M3.1 — Khối 11 (THPT)
 
 | # | Bài học | File | Bật demo | Extension |
 |---|---|---|---|---|
-| 1 | Máy học phân loại | `may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-hoc-phan-loai.sb3) | ☁️ cloud · tự train khi bấm cờ |
-| 2 | Mô hình AI kiểm thử CAPTCHA | `captcha-done.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcaptcha-done.sb3) | ☁️ cloud |
-| 3 | Chatbot phân tích phản hồi khách hàng | `chatbot-khao-sat-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fchatbot-khao-sat-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
-| 4 | Máy học âm thanh | `flappy-mario.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fflappy-mario.sb3) | ☁️ cloud |
-| 5 | Máy bắn muỗi thông minh | `may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fmay-ban-muoi-thong-minh.sb3) | 💾 local |
-| 6 | Camera AI giao thông | `camera-ai-3.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2Fcamera-ai-3.sb3) | ☁️ cloud |
+| 1 | Máy học phân loại | `ML-M3.1-SPM-may-hoc-phan-loai.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-hoc-phan-loai.sb3) | ☁️ cloud · tự train khi bấm cờ |
+| 2 | Mô hình AI kiểm thử CAPTCHA | `ML-M3.1-SPM-mo-hinh-ai-kiem-thu-captcha.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-mo-hinh-ai-kiem-thu-captcha.sb3) | ☁️ cloud |
+| 3 | Camera AI giao thông | `ML-M3.1-SPM-camera-ai-giao-thong.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-camera-ai-giao-thong.sb3) | ☁️ cloud |
+| 4 | Chatbot phân tích phản hồi khách hàng | `ML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
+| 5 | Máy học âm thanh | `ML-M3.1-SPM-may-hoc-am-thanh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-hoc-am-thanh.sb3) | ☁️ cloud |
+| 6 | Máy bắn muỗi thông minh | `ML-M3.1-SPM-may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-ban-muoi-thong-minh.sb3) | 💾 local |
 
 ## Ý nghĩa cột Extension
 
@@ -106,23 +106,26 @@ Kho-game/
 │   ├── ung-dung-tim-hieu-sinh-vat.sb3
 │   ├── tac-ke-hoa-moi-2.sb3
 ├── ML-M2.1/
-│   ├── may-hoc-phan-loai.sb3
-│   ├── captcha-done.sb3
-│   ├── chatbot-khao-sat-khach-hang.sb3
-│   ├── flappy-mario.sb3
-│   ├── ai-du-doan-ket-qua-hoc-tap.sb3
-│   ├── camera-ai-3.sb3
+│   ├── ML-M2.1-SPM-tong-quan-ve-hoc-may.sb3
+│   ├── ML-M2.1-SPM-mo-hinh-kiem-thu-captcha.sb3
+│   ├── ML-M2.1-SPM-camera-giam-sat-giao-thong.sb3
+│   ├── ML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3
+│   ├── ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3
+│   ├── ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3
 │   ├── ai-du-doan-ket-qua-hoc-tap.csv
 │   └── chatbot-khao-sat-khach-hang/
 ├── ML-M3.1/
-│   ├── may-hoc-phan-loai.sb3
-│   ├── captcha-done.sb3
-│   ├── chatbot-khao-sat-khach-hang.sb3
-│   ├── flappy-mario.sb3
-│   ├── may-ban-muoi-thong-minh.sb3
-│   ├── camera-ai-3.sb3
+│   ├── ML-M3.1-SPM-may-hoc-phan-loai.sb3
+│   ├── ML-M3.1-SPM-mo-hinh-ai-kiem-thu-captcha.sb3
+│   ├── ML-M3.1-SPM-camera-ai-giao-thong.sb3
+│   ├── ML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3
+│   ├── ML-M3.1-SPM-may-hoc-am-thanh.sb3
+│   ├── ML-M3.1-SPM-may-ban-muoi-thong-minh.sb3
+│   ├── ML-M3.1-SPM-may-ban-muoi-thong-minh-demo.sb3
 │   ├── may-ban-muoi-thong-minh.csv
 │   └── chatbot-khao-sat-khach-hang/
+├── extensions/
+│   └── may-ban-muoi/extension3.js
 ├── ScrJr-M1.1/            # 9 file .sjr (Scratch Jr)
 ├── AIArd-M2.1/            # 9 file .mblock / .zip (AI + Arduino)
 └── GHI-CHU-extension-mlforkids.md
