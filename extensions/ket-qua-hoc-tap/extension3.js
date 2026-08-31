@@ -1195,7 +1195,9 @@ class MachineLearningRegression {
             sum += distances[i].output;
         }
 
-        var result = Math.round((sum / k) * 10) / 10;
+        // Du lieu training (exam_score) o thang 0-100; doi ve thang 0-10
+        // (1 chu so phay) cho quen voi thang diem Viet Nam.
+        var result = Math.round((sum / k) / 10 * 10) / 10;
         return result;
     }
 
