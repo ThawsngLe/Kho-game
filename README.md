@@ -33,7 +33,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | 3 | Camera giám sát giao thông | `ML-M2.1-SPM-camera-giam-sat-giao-thong.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-camera-giam-sat-giao-thong.sb3) | ☁️ cloud |
 | 4 | Chatbot đọc hiểu khách hàng | `ML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 5 | Trò chơi điều khiển bằng giọng nói | `ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3) | ☁️ cloud |
-| 6 | AI dự đoán kết quả học tập | `ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3) | 💾 local |
+| 6 | AI dự đoán kết quả học tập | `ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3) | 🧩 tự chứa · không cần train |
 
 ## ML-M3.1 — Khối 11 (THPT)
 
@@ -63,6 +63,15 @@ từ đó về sau mở là chạy.
 machine learning model*, nên bấm cờ xanh là máy tự tải dữ liệu và train
 ngay trong trình duyệt. Không phải bấm gì trên Machine Learning for Kids,
 chỉ cần chờ vài chục giây lần đầu.
+
+**🧩 tự chứa · không cần train** — dùng cho các bài regression (dạng
+predict number) vì loại này không có bản cloud thật trên ML4K. Dữ liệu
+training + thuật toán (KNN, lazy learner) được nhúng thẳng vào 1 file
+`.js` tự viết, host trên GitHub Pages, `extensionURLs` của file `.sb3`
+trỏ sang đó thay vì bản gốc của ML4K. Mở link là chạy được ngay, không
+cần train, không phụ thuộc IndexedDB của từng máy. Xem
+[docs/share-predict-number-online.md](../docs/share-predict-number-online.md)
+để biết cách làm cho bài mới cùng dạng.
 
 Chi tiết từng project cloud, giới hạn của nền tảng và các việc còn phải
 làm tay: xem [GHI-CHU-extension-mlforkids.md](GHI-CHU-extension-mlforkids.md).
