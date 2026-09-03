@@ -58,8 +58,22 @@ Ba file dưới là bản đã thêm, làm theo đúng mẫu của bài Camera A
 set [Confident] to (recognise <đúng input mà block label đang dùng> (confidence))
 ```
 
-đặt ngay trước câu lệnh chứa block nhận diện, cộng một monitor cho biến
-`Confident` ở góc trên trái sân khấu.
+đặt ngay trước câu lệnh chứa block nhận diện, kèm **bảng hiển thị riêng** cho học sinh nhìn:
+
+- sprite `Confidence Panel` — khung bo tròn nền tối, chữ **CONFIDENCE**;
+- monitor biến `Confident` để **mode large** (chỉ số to, không lộ tên biến);
+- sprite `Confidence Bar` — 11 costume `bar_0`..`bar_10`, bề rộng tăng dần,
+  **đổi màu theo mức**: đỏ < 50, vàng 50-79, xanh ≥ 80. Vòng lặp
+  `switch costume to (join "bar_" (round (Confident / 10)))`.
+
+Giá trị được **làm tròn 1 chữ số** ngay tại nơi gán biến (QT6) — bản đầu chưa
+làm tròn, chạy thật thấy monitor hiện `94.065988`.
+
+Vị trí bảng của từng bài chọn theo **ảnh render sân khấu** chứ không đoán:
+máy học phân loại (0, 143) — dải trống trên giữa; CAPTCHA (175, −106) — góc
+dưới phải, dưới nút *AI solver*; chatbot (102, 139) — chỗ trống trong thanh
+đỏ *Analytics Bot*. Đặt ở góc trên trái như bản đầu thì đè lên tiêu đề
+CAPTCHA và lên thanh đỏ của chatbot.
 
 | Bài | Sprite | Input dùng lại | Extension |
 |---|---|---|---|
