@@ -58,22 +58,40 @@ Ba file dưới là bản đã thêm, làm theo đúng mẫu của bài Camera A
 set [Confident] to (recognise <đúng input mà block label đang dùng> (confidence))
 ```
 
-đặt ngay trước câu lệnh chứa block nhận diện, kèm **bảng hiển thị riêng** cho học sinh nhìn:
+đặt ngay trước câu lệnh chứa block nhận diện, kèm **thẻ hiển thị riêng** cho học sinh nhìn.
 
-- sprite `Confidence Panel` — khung bo tròn nền tối, chữ **CONFIDENCE**;
-- monitor biến `Confident` để **mode large** (chỉ số to, không lộ tên biến);
-- sprite `Confidence Bar` — 11 costume `bar_0`..`bar_10`, bề rộng tăng dần,
-  **đổi màu theo mức**: đỏ < 50, vàng 50-79, xanh ≥ 80. Vòng lặp
-  `switch costume to (join "bar_" (round (Confident / 10)))`.
+Thẻ là **sprite `the do tin cay`**, 101 costume `lv0`..`lv100` vẽ sẵn: nền tối
+bo tròn, chữ **ĐỘ TIN CẬY**, số phần trăm cỡ lớn và thanh mức đổi màu theo
+mức (đỏ thấp → xanh cao). Vòng lặp cập nhật:
+
+```
+forever
+  go to front
+  switch costume to (join "lv" (round (Confident)))
+```
+
+Không dùng monitor: ML4K bỏ qua toạ độ monitor lưu trong file, luôn dán về góc
+(5, 5) và hiện tên biến tiếng Anh — nên vẽ thẳng vào costume mới kiểm soát được
+vị trí (QT6).
 
 Giá trị được **làm tròn 1 chữ số** ngay tại nơi gán biến (QT6) — bản đầu chưa
 làm tròn, chạy thật thấy monitor hiện `94.065988`.
 
-Vị trí bảng của từng bài chọn theo **ảnh render sân khấu** chứ không đoán:
-máy học phân loại (0, 143) — dải trống trên giữa; CAPTCHA (175, −106) — góc
-dưới phải, dưới nút *AI solver*; chatbot (102, 139) — chỗ trống trong thanh
-đỏ *Analytics Bot*. Đặt ở góc trên trái như bản đầu thì đè lên tiêu đề
-CAPTCHA và lên thanh đỏ của chatbot.
+Vị trí thẻ của từng bài chọn theo **ảnh render sân khấu** chứ không đoán:
+máy học phân loại (40, 152); CAPTCHA (182, 140); chatbot (100, 150) — chỗ trống
+trong thanh đỏ *Analytics Bot*. Đặt ở góc trên trái như bản đầu thì đè lên tiêu
+đề CAPTCHA và lên thanh đỏ của chatbot.
+
+**Riêng bài chatbot** (07/09/2026): thẻ chỉ hiện trong bước phân tích, không
+hiện suốt bài. Trước đó thẻ `show` ngay từ cờ xanh nên cả giai đoạn học sinh
+đang trả lời 5 câu hỏi vẫn thấy một thẻ *ĐỘ TIN CẬY 0%* nằm góc trên phải —
+vừa thừa vừa dễ hiểu nhầm. Đã sửa thành:
+
+```
+when green flag clicked : go to (100,150), set size 80%, set [Confident] to 0, hide
+when I receive [Bắt đầu phân tích] : show
+when I receive [kết thúc phân tích] : hide
+```
 
 | Bài | Sprite | Input dùng lại | Extension |
 |---|---|---|---|
@@ -109,6 +127,12 @@ Chatbot:
 https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2Fworking-on%2Fchatbot-phan-hoi-khach-hang-confidence.sb3
 ```
 
-Cách kiểm: mở link → chờ editor nạp xong → bấm cờ xanh (bài CAPTCHA và
-chatbot cần bấm nút train một lần trước) → nhìn monitor **Confident** trên sân
-khấu: phải hiện số và đổi theo từng ảnh/câu được nhận diện, không đứng ở 0.
+Cách kiểm: mở link → chờ đủ ~45 giây cho editor nạp xong → bấm cờ xanh (bài
+CAPTCHA và chatbot cần train model một lần trên ML4K trước) → nhìn **thẻ ĐỘ TIN
+CẬY** trên sân khấu: phải hiện số phần trăm và đổi theo từng ảnh/câu được nhận
+diện, không đứng ở 0, thanh mức đổi màu theo số.
+
+Riêng bài chatbot, kịch bản đúng của học sinh: bấm cờ xanh → bấm nút **Bắt
+đầu** → trả lời lần lượt 5 câu, mỗi câu bấm ô nhập rồi gõ → hết câu 5 bấm nút
+**Kết thúc** → bấm nút **Phân tích**. Thẻ độ tin cậy chỉ được xuất hiện từ lúc
+bấm Phân tích, và biến mất khi bảng tổng kết hiện ra.
