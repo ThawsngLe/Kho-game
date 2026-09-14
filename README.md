@@ -8,7 +8,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 |---|---|
 | Nền tảng | [Machine Learning for Kids](https://machinelearningforkids.co.uk/scratch/) |
 | Số module ML | 3 (ML-M1.1, ML-M2.1, ML-M3.1) |
-| Số file .sb3 | 20 (ML-M1.1: 7, ML-M2.1: 6, ML-M3.1: 7) |
+| Số file .sb3 | 21 (ML-M1.1: 7, ML-M2.1: 7, ML-M3.1: 7) |
 | Cấp học | Tiểu học (G5), THCS (G9), THPT (G11) |
 | Học phần khác | ScrJr-M1.1 (Scratch Jr), AIArd-M2.1 (AI + Arduino) |
 
@@ -33,6 +33,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | 3 | Camera giám sát giao thông | `ML-M2.1-SPM-camera-giam-sat-giao-thong.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-camera-giam-sat-giao-thong.sb3) | ☁️ cloud |
 | 4 | Chatbot đọc hiểu khách hàng | `ML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 5 | Trò chơi điều khiển bằng giọng nói (Mario mê cung) | `ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3) | ☁️ cloud |
+| 5b | Flappy Mario vỗ tay (biến thể) | `ML-M2.1-SPM-flappy-mario-vo-tay.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-flappy-mario-vo-tay.sb3) | ☁️ cloud · tự train khi bấm cờ |
 | 6 | AI dự đoán kết quả học tập | `ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M2.1%2FML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3) | 🧩 tự chứa · không cần train |
 
 ## ML-M3.1 — Khối 11 (THPT)
@@ -120,6 +121,7 @@ Kho-game/
 │   ├── ML-M2.1-SPM-camera-giam-sat-giao-thong.sb3
 │   ├── ML-M2.1-SPM-chatbot-doc-hieu-khach-hang.sb3
 │   ├── ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3
+│   ├── ML-M2.1-SPM-flappy-mario-vo-tay.sb3
 │   ├── ML-M2.1-SPM-ai-du-doan-ket-qua-hoc-tap.sb3
 │   ├── ai-du-doan-ket-qua-hoc-tap.csv
 │   └── chatbot-khao-sat-khach-hang/

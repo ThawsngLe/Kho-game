@@ -14,6 +14,7 @@ những chỗ đang vướng.
 | captcha-done | `13d7b2d0-8a3c-11f1-…` | tru_cuu_hoa, vach_qua_duong, xe_dap — đã nạp 250 ảnh, xem mục CAPTCHA |
 | flappy-mario (ML-M3.1 máy học âm thanh) | `24cd9640-8a3c-11f1-…` | _background_noise_, Left, Right, Up, Down, No_talk |
 | mario mê cung (ML-M2.1 trò chơi điều khiển bằng giọng nói) | `24cd9640-8a3c-11f1-…` (dùng chung với flappy-mario) | như trên |
+| flappy-mario vỗ tay (ML-M2.1 biến thể) | `ed631de0-afea-11f1-…` | _background_noise_, clap, bg |
 | may-hoc-phan-loai | `fe13fb00-8a38-11f1-…` | dog, cat — đã nạp 240 ảnh Kaggle |
 
 Cả 4 file đã khớp `extension id` giữa `project.json` và `extension3.js` của
@@ -57,6 +58,37 @@ cả flappy-mario (ML-M3.1) lẫn mê cung (ML-M2.1).
 Tên file giữ nguyên `ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3` để
 link 1-click không đổi. Bản cũ ở
 `archive/ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi-ban-cu-2026-09.sb3`.
+
+## Flappy Mario vỗ tay (14/09/2026)
+
+Biến thể của bản flappy-mario đã archive: vỗ tay thì Mario bay lên, thay cho
+space hoặc click. Dựng bằng `scratch/scripts/build_flappy_clap.py` trong repo
+`kdi gg ws`, file `ML-M2.1/ML-M2.1-SPM-flappy-mario-vo-tay.sb3`.
+
+Project cloud `ed631de0-afea-11f1-…`, nhãn `clap`, `bg`, id extension
+`mlforkidssounded631de0afea11f19cd9ff2567d6f720`, hat 0 = clap.
+
+Cách hoạt động trong sprite `Mario`:
+
+```
+khi bấm cờ xanh      -> vỗ tay = 0; train new model; đợi model Ready; start listening
+khi nghe clap        -> vỗ tay = 1; nếu Flappable = 1 thì phát âm Flap
+vòng vật lý          -> nếu <<space | click> | vỗ tay = 1>: YVelocity = 5; vỗ tay = 0
+màn mở đầu, chơi lại -> vỗ tay = 0; đợi đến khi <<space | click> | vỗ tay = 1>; vỗ tay = 0
+```
+
+Biến `vỗ tay` làm cầu nối vì hat `when I hear` chạy tách khỏi vòng vật lý;
+đặt về 0 ngay sau khi dùng để một tiếng vỗ chỉ tính một lần. Xoá cờ trước
+khi chờ ở màn chơi lại để tiếng vỗ lúc đang chết không tự bắt đầu ván mới.
+
+Model âm thanh train trong trình duyệt mỗi lần bấm cờ (extension gọi
+`/train` lấy mẫu rồi train bằng TensorFlow.js), nên bản cũ chỉ có
+`start listening` mà không `train new model` thì `startListening` bị bỏ qua
+vì `modelReady` còn false. Bản này train trước rồi mới nghe.
+
+Lúc dựng (14/09/2026) project `ed631de0` **chưa có mẫu âm thanh** nào ở cả
+ba nhãn. Phải vào trang training thu ít nhất 8 mẫu mỗi nhãn (vỗ tay, nền)
+thì train mới chạy; chưa có mẫu thì bấm cờ đứng mãi ở `wait until Ready`.
 
 ## Máy học phân loại — đổi từ Car/Cup sang dog/cat (30/07/2026)
 
