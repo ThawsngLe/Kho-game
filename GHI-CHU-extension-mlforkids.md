@@ -12,7 +12,8 @@ những chỗ đang vướng.
 |---|---|---|
 | camera-ai-3 | `4acf8900-8a39-11f1-…` | Co_doi_mu_bao_hiem, Khong_doi_mu_bao_hiem |
 | captcha-done | `13d7b2d0-8a3c-11f1-…` | tru_cuu_hoa, vach_qua_duong, xe_dap — đã nạp 250 ảnh, xem mục CAPTCHA |
-| flappy-mario | `24cd9640-8a3c-11f1-…` | _background_noise_, Left, Right, Up, Down, No_talk |
+| flappy-mario (ML-M3.1 máy học âm thanh) | `24cd9640-8a3c-11f1-…` | _background_noise_, Left, Right, Up, Down, No_talk |
+| mario mê cung (ML-M2.1 trò chơi điều khiển bằng giọng nói) | `24cd9640-8a3c-11f1-…` (dùng chung với flappy-mario) | như trên |
 | may-hoc-phan-loai | `fe13fb00-8a38-11f1-…` | dog, cat — đã nạp 240 ảnh Kaggle |
 
 Cả 4 file đã khớp `extension id` giữa `project.json` và `extension3.js` của
@@ -23,6 +24,39 @@ Lưu ý khi thay extension: phải đổi **đồng thời** `extensionURLs`,
 vẫn nạp extension mới nhưng các block cũ mang id cũ sẽ không nhận ra, palette
 hiện block lạ và luồng AI đứng im. Dùng `retarget_extension.py`, không dùng
 `swap_extension.py` cho việc này.
+
+## Trò chơi điều khiển bằng giọng nói — đổi từ flappy-mario sang Mario mê cung (14/09/2026)
+
+Bản flappy-mario cần giữ phím và canh nhảy, không hợp với điều khiển bằng
+giọng nói vì mỗi lệnh nói có độ trễ. Bản mới là Mario đi trong mê cung, mỗi
+lệnh nói là một bước đi rời rạc, không cần phản xạ nhanh.
+
+Nguồn: Scratch project [477500528](https://scratch.mit.edu/projects/477500528/)
+"Mario Maze (Mobile)" của Eth4486, giấy phép CC BY-SA 2.0. Dựng bằng
+`scratch/scripts/build_mario_maze_voice.py` trong repo `kdi gg ws`.
+
+Cách hoạt động trong sprite `Mario`:
+
+```
+khi nghe Left / Right / Up / Down   -> broadcast cùng tên
+khi bấm phím mũi tên                -> broadcast cùng tên
+khi bấm nút màn hình (4 sprite Nút) -> broadcast cùng tên
+khi nhận Right -> lặp (bước) lần: đổi x 10; nếu chạm Mê cung: đổi x -10, dừng script
+khi bấm cờ xanh -> đặt bước = 4, start listening
+```
+
+Biến `bước` = 4 nên mỗi lệnh đi 40 px, gặp tường thì đứng lại; muốn đi xa hơn
+thì đổi một số. Ba đường điều khiển (giọng nói, phím, nút) gặp nhau ở một
+broadcast nên học sinh chỉ phải hiểu một chỗ.
+
+Project cloud giữ nguyên `24cd9640-8a3c-11f1-…`, id extension
+`mlforkidssound5c4512d08a3011f1b2aac329ebcca8d1`, thứ tự hat 0..3 = Left,
+Right, Up, Down đã đối chiếu với `extension3.js`. Model train một lần chơi được
+cả flappy-mario (ML-M3.1) lẫn mê cung (ML-M2.1).
+
+Tên file giữ nguyên `ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi.sb3` để
+link 1-click không đổi. Bản cũ ở
+`archive/ML-M2.1-SPM-tro-choi-dieu-khien-bang-giong-noi-ban-cu-2026-09.sb3`.
 
 ## Máy học phân loại — đổi từ Car/Cup sang dog/cat (30/07/2026)
 
