@@ -86,9 +86,13 @@ Model âm thanh train trong trình duyệt mỗi lần bấm cờ (extension g�
 `start listening` mà không `train new model` thì `startListening` bị bỏ qua
 vì `modelReady` còn false. Bản này train trước rồi mới nghe.
 
-Lúc dựng (14/09/2026) project `ed631de0` **chưa có mẫu âm thanh** nào ở cả
-ba nhãn. Phải vào trang training thu ít nhất 8 mẫu mỗi nhãn (vỗ tay, nền)
-thì train mới chạy; chưa có mẫu thì bấm cờ đứng mãi ở `wait until Ready`.
+Project `ed631de0` đã có 10 mẫu mỗi nhãn (kiểm qua endpoint `/train` ngày
+14/09/2026). Chưa có mẫu thì bấm cờ đứng mãi ở `wait until Ready`.
+
+Độ khó hạ xuống vì nhận diện âm thanh trễ khoảng một giây: trọng lực
+-0.4 thành -0.2, vận tốc nhảy 5 thành 4, ống trôi -2 thành -1.5 px mỗi
+khung hình. Thời gian trên không mỗi cú nhảy từ 0.8 s lên 1.3 s. Chỉnh
+tiếp ở GRAVITY, JUMP, PIPE_SPEED trong script dựng.
 
 ## Máy học phân loại — đổi từ Car/Cup sang dog/cat (30/07/2026)
 
