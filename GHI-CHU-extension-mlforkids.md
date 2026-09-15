@@ -39,12 +39,17 @@ Nguồn: Scratch project [477500528](https://scratch.mit.edu/projects/477500528/
 Cách hoạt động trong sprite `Mario`:
 
 ```
-khi nghe Left / Right / Up / Down   -> broadcast cùng tên
+khi nghe Left / Right / Up / Down   -> broadcast cùng tên, nói "Trái/Phải/Lên/Xuống" 1 giây
+khi nghe No_talk                    -> nghĩ "Đang chờ..."
 khi bấm phím mũi tên                -> broadcast cùng tên
 khi bấm nút màn hình (4 sprite Nút) -> broadcast cùng tên
 khi nhận Right -> lặp (bước) lần: đổi x 10; nếu chạm Mê cung: đổi x -10, dừng script
-khi bấm cờ xanh -> đặt bước = 4, start listening
+khi bấm cờ xanh -> đặt bước = 4, train new model, đợi model Ready, start listening
 ```
+
+Bong bóng nói (15/09/2026) để người chơi thấy máy nghe được gì, dễ chơi hơn
+và tiện sửa lỗi khi model nhầm. Train ở cờ xanh (15/09/2026) vì model âm
+thanh chỉ có trong trình duyệt của phiên; xem mục Flappy Mario vỗ tay.
 
 Biến `bước` = 4 nên mỗi lệnh đi 40 px, gặp tường thì đứng lại; muốn đi xa hơn
 thì đổi một số. Ba đường điều khiển (giọng nói, phím, nút) gặp nhau ở một
