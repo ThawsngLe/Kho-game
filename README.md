@@ -45,7 +45,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | 3 | Camera AI giao thông | `ML-M3.1-SPM-camera-ai-giao-thong.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-camera-ai-giao-thong.sb3) | ☁️ cloud |
 | 4 | Chatbot phân tích phản hồi khách hàng | `ML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 5 | Máy học âm thanh (Mario mê cung, cùng SP với M2.1, M3.1 khác ở phần đánh giá) | `ML-M3.1-SPM-may-hoc-am-thanh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-hoc-am-thanh.sb3) | ☁️ cloud |
-| 6 | Máy bắn muỗi thông minh | `ML-M3.1-SPM-may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-ban-muoi-thong-minh.sb3) | 💾 local |
+| 6 | Máy bắn muỗi thông minh (phím a, c hiện sai số và MAE) | `ML-M3.1-SPM-may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-ban-muoi-thong-minh.sb3) | 💾 local |
 
 ## Ý nghĩa cột Extension
 
