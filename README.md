@@ -10,7 +10,7 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | Số module ML | 3 (ML-M1.1, ML-M2.1, ML-M3.1) |
 | Số file .sb3 | 21 (ML-M1.1: 7, ML-M2.1: 7, ML-M3.1: 7) |
 | Cấp học | Tiểu học (G5), THCS (G9), THPT (G11) |
-| Học phần khác | ScrJr-M1.1 (Scratch Jr), AIArd-M2.1 (AI + Arduino) |
+| Học phần khác | ScrJr-M1.1 (Scratch Jr), AIArd-M2.1 (AI + Arduino), AI-M2.1 (RAISE Playground) |
 
 ## ML-M1.1 — Khối 5 (Tiểu học)
 
@@ -46,6 +46,15 @@ thẳng trong editor với project đã nạp sẵn, không cần tải file v�
 | 4 | Chatbot phân tích phản hồi khách hàng | `ML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-chatbot-phan-tich-phan-hoi-khach-hang.sb3) | ☁️ cloud · cần train 1 lần |
 | 5 | Máy học âm thanh (Mario mê cung, cùng SP với M2.1, M3.1 khác ở phần đánh giá) | `ML-M3.1-SPM-may-hoc-am-thanh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-hoc-am-thanh.sb3) | ☁️ cloud |
 | 6 | Máy bắn muỗi thông minh (phím a, c hiện ô MAE và số phát tự động) | `ML-M3.1-SPM-may-ban-muoi-thong-minh.sb3` | [Mở](https://machinelearningforkids.co.uk/scratch/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FML-M3.1%2FML-M3.1-SPM-may-ban-muoi-thong-minh.sb3) | 🧩 tự chứa · KNN 235 dòng nhúng sẵn, không cần train |
+
+## AI-M2.1 (Lập trình AI, khối 6, 7)
+
+Nền tảng: [RAISE Playground](https://playground.raise.mit.edu/main/) (khối PRG của MIT, cùng bộ khối với kcode.io). Link nạp project bằng tham số `?project=`.
+
+| # | Bài học | File | Bật demo | Ghi chú |
+|---|---|---|---|---|
+| 9 | AI trong các ngành nghề (chuỗi Cánh đồng) | `AI-M2.1-SPM-ai-trong-cac-nganh-nghe-canh-dong.sb3` | [Mở](https://playground.raise.mit.edu/main/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FAI-M2.1%2FAI-M2.1-SPM-ai-trong-cac-nganh-nghe-canh-dong.sb3) | Cờ xanh chạy chế độ mẫu, không cần camera. Phím C bật camera, cần dán link mô hình Teachable Machine |
+| 9 | AI trong các ngành nghề (chuỗi Nhà máy) | `AI-M2.1-SPM-ai-trong-cac-nganh-nghe-nha-may.sb3` | [Mở](https://playground.raise.mit.edu/main/?project=https%3A%2F%2Fraw.githubusercontent.com%2FThawsngLe%2FKho-game%2Fmain%2FAI-M2.1%2FAI-M2.1-SPM-ai-trong-cac-nganh-nghe-nha-may.sb3) | Như trên |
 
 ## Ý nghĩa cột Extension
 
