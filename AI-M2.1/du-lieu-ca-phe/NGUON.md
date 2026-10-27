@@ -9,5 +9,6 @@
 | thu-hoach (quả) | chin, xanh | Kaggle harisyunanda/dataset-coffee-cherry, cắt từ khung Matang, Tidak Matang | ODbL 1.0 |
 | nhan-nl (nhân xanh) | tot, loi | Hugging Face Project-AgML/coffee_bean_quality_classification (AA, AAA với Bits, C), phóng to phần giữa ảnh | CC BY 4.0 |
 | che-bien (hạt rang) | dat, loi | GitHub dont-text-me/RoastedCoffeeDefectDataset (normal với burnt, under) | Apache 2.0 |
+| dong-goi (chai thành phẩm) | du-nhan, thieu-nhan | Kaggle youssefeldemerdashh/big-cola-bottles-dataset-for-yolo-quality-control, cắt từng chai (Perfect_bottle, no_label); tác giả tự chụp |  Apache 2.0 |
 
 Ảnh đã được thu nhỏ, cắt khung (bước thu hoạch); không chỉnh màu.
